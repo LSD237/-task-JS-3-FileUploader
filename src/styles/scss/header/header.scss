@@ -1,0 +1,39 @@
+header {
+  // width: 100%;
+  background: #3c096c;
+  height: 50px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  nav {
+    position: relative;
+    width: 100%;
+    max-width: 1480px;
+    margin: 0 auto;
+
+    ul {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-around;
+
+      li {
+        list-style-type: none;
+        display: inline-block;
+
+        a {
+          display: inline-block;
+          color: wheat;
+          // color: #e0aaff;
+          text-decoration: none;
+          font-size: 20px;
+          font-weight: bold;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

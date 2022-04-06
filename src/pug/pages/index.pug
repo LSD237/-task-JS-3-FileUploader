@@ -1,0 +1,17 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Modal window task'
+  - var pageClass = 'index-page'
+
+block content
+  main
+    // секция home
+    section.section-home#Home
+      .container
+        .card
+          input#file(type="file")
+          //- button.btn Открыть
+          //- button.btn.primary Загрузить
+        
+    // / секция home

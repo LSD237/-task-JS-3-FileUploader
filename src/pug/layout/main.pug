@@ -1,0 +1,18 @@
+include ../utils/mixins
+block variables
+
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    //- title Modal window task
+    title #{title}
+    //- добавление фавиконки (картинка на вкладке в браузере)
+    link(rel='icon' href='favicon.ico' type='image/ico')
+  //- pageClass = 'index-page'
+  body(class=pageClass)
+    include ../includes/modules/header
+    block content
+    //- include ../includes/modules/footer
