@@ -1,3 +1,12 @@
+function byteToSize(bytes) {
+  const sizes = ['Bytes,', 'KB', 'MB', 'GB', 'TB']
+  if (!bytes) {
+    return '0 Byte'
+  }
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
+  return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i]
+}
+
 export function upload(selector, options = {}) {
   const input = document.querySelector(selector)
   const preview = document.createElement('div') //блок в котором располагаются выбранные картинки
@@ -29,6 +38,7 @@ export function upload(selector, options = {}) {
 
     const files = Array.from(event.target.files) //преобразование к массиву
 
+    preview.innerHTML = '' //отчистка блока для добавления ф-в
     files.forEach(file => {
       if (!file.type.match('image')) { // если это не картинка
         return
@@ -40,7 +50,12 @@ export function upload(selector, options = {}) {
         const src = ev.target.result //код картинки в формате Base64
         preview.insertAdjacentHTML('afterbegin', `
           <div class="preview-image">
+            <div class="preview-remove">&times;</div>
             <img src="${src}" alt="${file.name}">
+            <div class="preview-info">
+              <span>${file.name}</span>
+              ${byteToSize(file.size)}
+            </div>
           </div>
         `)
       }
