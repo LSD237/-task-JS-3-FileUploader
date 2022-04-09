@@ -8,6 +8,7 @@ function byteToSize(bytes) {
 }
 
 export function upload(selector, options = {}) {
+  let files = []
   const input = document.querySelector(selector)
   const preview = document.createElement('div') //блок в котором располагаются выбранные картинки
 
@@ -36,7 +37,7 @@ export function upload(selector, options = {}) {
       return
     }
 
-    const files = Array.from(event.target.files) //преобразование к массиву
+    files = Array.from(event.target.files) //преобразование к массиву
 
     preview.innerHTML = '' //отчистка блока для добавления ф-в
     files.forEach(file => {
@@ -50,7 +51,7 @@ export function upload(selector, options = {}) {
         const src = ev.target.result //код картинки в формате Base64
         preview.insertAdjacentHTML('afterbegin', `
           <div class="preview-image">
-            <div class="preview-remove">&times;</div>
+            <div class="preview-remove" data-name="${file.name}">&times;</div>
             <img src="${src}" alt="${file.name}">
             <div class="preview-info">
               <span>${file.name}</span>
@@ -64,6 +65,22 @@ export function upload(selector, options = {}) {
     })
   }
 
+  const removeHandler = event => {
+    if (!event.target.dataset.name) {
+      return
+    }
+
+    const { name } = event.target.dataset
+    files = files.filter(f => f.name !== name)
+
+    const block = preview.querySelector(`[data-name="${name}"]`).closest('.preview-image')
+
+    block.classList.add('removing')
+    setTimeout(() => block.remove(), 300)
+    // block.remove()
+  }
+
   open.addEventListener('click', triggerInput)
   input.addEventListener('change', changeHandler)
+  preview.addEventListener('click', removeHandler)
 }

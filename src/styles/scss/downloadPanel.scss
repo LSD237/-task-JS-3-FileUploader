@@ -60,6 +60,11 @@
         bottom: 0;
       }
 
+      &.removing {
+        transform: scale(0);
+        transition: transform .3s;
+      }
+
       .preview-remove {
         opacity: 0;
         width: 20px;
