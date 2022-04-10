@@ -6,17 +6,28 @@ function byteToSize(bytes) {
   const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
   return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i]
 }
+//Ф-я хелпер
+const element = (tag, classes = [], content) => {
+  const node = document.createElement(tag)
+
+  if (classes.length) {
+    node.classList.add(...classes)
+  }
+
+  if (content) {
+    node.textContent = content
+  }
+
+  return node
+}
 
 export function upload(selector, options = {}) {
   let files = []
   const input = document.querySelector(selector)
-  const preview = document.createElement('div') //блок в котором располагаются выбранные картинки
-
-  preview.classList.add('preview')
-
-  const open = document.createElement('button')
-  open.classList.add('btn')
-  open.textContent = 'Открыть'
+  const preview = element('div', ['preview']) //блок в котором располагаются выбранные картинки
+  const open = element('button', ['btn'], 'Открыть') //блок в котором располагаются выбранные картинки
+  const upload = element('button', ['btn', 'primary'], 'Загрузить') //блок в котором располагаются выбранные картинки
+  upload.style.display = 'none'
 
   if (options.multi) { //если эл-в много - добавляется атри-т позволя-й добавлять много эл-в
     input.setAttribute('multiple', true) //добавляет аттрибут и его значение
@@ -27,6 +38,7 @@ export function upload(selector, options = {}) {
   }
 
   input.insertAdjacentElement('afterend', preview)
+  input.insertAdjacentElement('afterend', upload)
   input.insertAdjacentElement('afterend', open) //добавляет эл-т open после(afterend) эл-а input
 
   const triggerInput = () => input.click()
@@ -38,8 +50,9 @@ export function upload(selector, options = {}) {
     }
 
     files = Array.from(event.target.files) //преобразование к массиву
-
     preview.innerHTML = '' //отчистка блока для добавления ф-в
+    upload.style.display = 'inline'
+
     files.forEach(file => {
       if (!file.type.match('image')) { // если это не картинка
         return
@@ -73,14 +86,22 @@ export function upload(selector, options = {}) {
     const { name } = event.target.dataset
     files = files.filter(f => f.name !== name)
 
+    if (!files.length) {
+      upload.style.display = 'none'
+    }
+
     const block = preview.querySelector(`[data-name="${name}"]`).closest('.preview-image')
 
     block.classList.add('removing')
     setTimeout(() => block.remove(), 300)
-    // block.remove()
+  }
+
+  const uploadHandler = () => {
+
   }
 
   open.addEventListener('click', triggerInput)
   input.addEventListener('change', changeHandler)
   preview.addEventListener('click', removeHandler)
+  upload.addEventListener('click', uploadHandler)
 }
