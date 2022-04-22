@@ -38,12 +38,12 @@ const sourceMap = () => {
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
-  entry: './index.js',
-  // entry: {
-  //   index: ['./index.js'],
-  //   second: ['./secondPage.js'],
-  //   third: ['./thirdPage.js']
-  // },
+  // entry: './index.js',
+  entry: {
+    index: ['./index.js'],
+    second: ['./secondPage.js'],
+    // third: ['./thirdPage.js']
+  },
   output: {
     filename: filename('js'),
     path: path.resolve(__dirname, 'dist'),
@@ -103,13 +103,13 @@ module.exports = {
       // template: './index.html'
       filename: 'index.html',
       template: './pug/pages/index.pug',
-      // chunks: ['index']
+      chunks: ['index']
     }),
-    // new HTMLWebpackPlugin({
-    //   filename: 'second.html',
-    //   template: './pug/pages/second.pug',
-    //   chunks: ['second']
-    // }),
+    new HTMLWebpackPlugin({
+      filename: 'second.html',
+      template: './pug/pages/second.pug',
+      chunks: ['second']
+    }),
     // new HTMLWebpackPlugin({
     //   filename: 'third.html',
     //   template: './pug/pages/third.pug',

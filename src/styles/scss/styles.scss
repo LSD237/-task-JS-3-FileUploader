@@ -5,7 +5,8 @@
 body {
   // background-color: rgb(27, 27, 27);
   // color: wheat;
-  background-color: rgb(255, 255, 255);
+  // background-color: rgb(255, 255, 255);
+  background-color: #ffc6ff;
   color: black;
   font-family: 'Roboto', sans-serif;
 }
@@ -15,4 +16,8 @@ body {
   margin: 0 auto;
   padding-top: 5rem;
   // text-align: center;
+}
+
+.active {
+  color: #CAFFBF;
 }

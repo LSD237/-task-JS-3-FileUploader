@@ -21,20 +21,23 @@ const element = (tag, classes = [], content) => {
   return node
 }
 
+function none() { }
+
 export function upload(selector, options = {}) {
   let files = []
+  const onUpload = options.onUpload ?? none
   const input = document.querySelector(selector)
   const preview = element('div', ['preview']) //блок в котором располагаются выбранные картинки
-  const open = element('button', ['btn'], 'Открыть') //блок в котором располагаются выбранные картинки
-  const upload = element('button', ['btn', 'primary'], 'Загрузить') //блок в котором располагаются выбранные картинки
+  const open = element('button', ['btn'], 'Открыть')
+  const upload = element('button', ['btn', 'primary'], 'Загрузить')
   upload.style.display = 'none'
 
   if (options.multi) { //если эл-в много - добавляется атри-т позволя-й добавлять много эл-в
     input.setAttribute('multiple', true) //добавляет аттрибут и его значение
   }
 
-  if (options.accept && Array.isArray(options.accept)) { //если прису-т параметр accept и это массив
-    input.setAttribute('accept', options.accept.join(','))
+  if (options.accept && Array.isArray(options.accept)) { //если прису-ет параметр accept и это массив
+    input.setAttribute('accept', options.accept.join(',')) //возможность выбора только картинок
   }
 
   input.insertAdjacentElement('afterend', preview)
@@ -48,10 +51,10 @@ export function upload(selector, options = {}) {
     if (!event.target.files.length) { //если не выбранно не одного файла
       return
     }
-
-    files = Array.from(event.target.files) //преобразование к массиву
+    //в свойстве files у <input type="file"> содержатся выбранные файлы
+    files = Array.from(event.target.files) //преобразование фай-в к массиву
     preview.innerHTML = '' //отчистка блока для добавления ф-в
-    upload.style.display = 'inline'
+    upload.style.display = 'inline' //показать кнопку загрузки
 
     files.forEach(file => {
       if (!file.type.match('image')) { // если это не картинка
@@ -96,8 +99,17 @@ export function upload(selector, options = {}) {
     setTimeout(() => block.remove(), 300)
   }
 
-  const uploadHandler = () => {
+  const clearPreview = el => {
+    el.style.bottom = '0px'
+    el.innerHTML = '<div class="preview-info-progress"></div>'
+  }
 
+  //обработчик для загрузки на сервер
+  const uploadHandler = () => {
+    preview.querySelectorAll('.preview-remove').forEach(e => e.remove()) //удаляет все крестики
+    const previewInfo = preview.querySelectorAll('.preview-info')
+    previewInfo.forEach(clearPreview) //переделывает все "preview-info" в "preview-info-progress"(под прогрессбар)
+    onUpload(files, previewInfo)
   }
 
   open.addEventListener('click', triggerInput)

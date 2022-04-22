@@ -35,6 +35,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "firebase": "^9.6.10",
     "normalize.css": "^8.0.1"
   }
 }

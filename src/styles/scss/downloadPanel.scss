@@ -95,6 +95,18 @@
         justify-content: space-between;
         transition: bottom .22s;
       }
+
+      .preview-info-progress {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background: #42b983;
+        transition: width .22s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

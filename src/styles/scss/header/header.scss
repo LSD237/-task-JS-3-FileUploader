@@ -1,6 +1,7 @@
 header {
   // width: 100%;
-  background: #3c096c;
+  // background: #3c096c;
+  background: #A0C4FF;
   height: 50px;
   display: flex;
   flex-flow: row nowrap;
@@ -23,14 +24,16 @@ header {
 
         a {
           display: inline-block;
-          color: wheat;
+          color: #484360;
           // color: #e0aaff;
           text-decoration: none;
           font-size: 20px;
           font-weight: bold;
+          transition: .22s;
 
           &:hover {
             cursor: pointer;
+            color: #CAFFBF;
           }
         }
       }
