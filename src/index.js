@@ -5,12 +5,12 @@ import { initializeApp } from 'firebase/app'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 
 const firebaseConfig = {
-  apiKey: "***************************************",
-  authDomain: "************************",
-  projectId: "*********",
-  storageBucket: "*********************",
-  messagingSenderId: "************",
-  appId: "*****************************************"
+  apiKey: "AIzaSyDftPrbF4AnGSi5lLKwc_vqfgFA8UY0pFY",
+  authDomain: "nk-upload.firebaseapp.com",
+  projectId: "nk-upload",
+  storageBucket: "nk-upload.appspot.com",
+  messagingSenderId: "163016087613",
+  appId: "1:163016087613:web:8a0881cc6ffe1b8bcdb254"
 }
 
 // Initialize Firebase
